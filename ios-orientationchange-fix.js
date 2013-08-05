@@ -16,20 +16,18 @@
 
     var meta = doc.querySelector( "meta[name=viewport]" ),
         initialContent = meta && meta.getAttribute( "content" ),
-        disabledZoom = initialContent + ",maximum-scale=1",
-        enabledZoom = initialContent + ",maximum-scale=10",
         enabled = true,
 		x, y, z, aig;
 
     if( !meta ){ return; }
 
     function restoreZoom(){
-        meta.setAttribute( "content", enabledZoom );
+        meta.setAttribute( "content", initialContent.replace(/minimum\-scale[ =0-9\.]*/gi, "minimum-scale=.25").replace(/maximum\-scale[ =0-9\.]*/gi, "maximum-scale=10").replace(/user\-scalable[ =]*no/gi, "user-scalable=1"));
         enabled = true;
     }
 
     function disableZoom(){
-        meta.setAttribute( "content", disabledZoom );
+        meta.setAttribute( "content", initialContent.replace(/minimum\-scale[ =0-9\.]*/gi, "minimum-scale=1").replace(/maximum\-scale[ =0-9\.]*/gi, "maximum-scale=1").replace(/user\-scalable[ =]*no/gi, "user-scalable=0"));
         enabled = false;
     }
 	
